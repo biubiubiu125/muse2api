@@ -60,3 +60,8 @@ Thumbs.db
 *.zip
 *.tar.gz
 *.tar
+
+# 测试与本地校验，不上传
+tests/
+requirements-dev.txt
+tools/verify_engine_selectors.py

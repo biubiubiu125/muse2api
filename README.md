@@ -223,19 +223,6 @@ curl "http://localhost:18610/v1/videos/task_xyz789" \
 
 ---
 
-## 本地测试
-
-不访问 Muse、不消耗生成额度：
-
-```bash
-pip install -r requirements-dev.txt
-python tests/run_offline.py
-```
-
-媒体选择测试需要本机 Chromium。浏览器不在 PATH 时设置 `MUSE2API_CHROMIUM`。
-
----
-
 ## 安全
 
 账号、任务和媒体都在本地 `data/`。不要把 `.env`、`data/accounts.json` 或 Cookie 提交到仓库。
