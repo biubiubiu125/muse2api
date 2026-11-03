@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  muse2api:
+    build: .
+    image: muse2api:latest
+    container_name: muse2api
+    restart: always
+    ports:
+      - "18610:18610"
+    # 把 .env 里的全部配置（并发、软隐身、超时、PUBLIC_BASE、参考图开关等）原样传进容器；
+    # 不存在 .env 时也能启动。自动生成 / 轮换的 Key 保存在 ./data/.env（随数据卷持久化）。
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      # 持久化账号配置、任务日志及媒体文件
+      - ./data:/app/data
+    shm_size: '2gb' # 保证 Chromium 渲染多标签页时不因 /dev/shm 耗尽崩溃

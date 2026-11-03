@@ -1,0 +1,19 @@
+# 使用 GHCR 预构建镜像部署（免本地构建）。
+# 用法：docker compose -f docker-compose.ghcr.yml up -d
+# 升级到新镜像：docker compose -f docker-compose.ghcr.yml pull && docker compose -f docker-compose.ghcr.yml up -d
+# 注意：服务依赖进程内全局锁 + 单浏览器实例，必须单 worker（镜像默认即单 worker，勿加 uvicorn --workers>1）。
+services:
+  muse2api:
+    image: ghcr.io/biubiubiu125/muse2api:latest
+    container_name: muse2api
+    restart: always
+    ports:
+      - "18610:18610"
+    # 把 .env 里的全部配置（并发、软隐身、超时、PUBLIC_BASE、参考图开关等）原样传进容器；
+    # 不存在 .env 时也能启动。自动生成 / 轮换的 Key 保存在 ./data/.env（随数据卷持久化）。
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./data:/app/data
+    shm_size: '2gb'

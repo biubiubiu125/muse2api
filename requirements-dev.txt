@@ -1,0 +1,3 @@
+-r requirements.txt
+# 离线测试（tests/run_offline.py）用到的 fastapi.testclient 依赖 httpx
+httpx>=0.27
